@@ -1,33 +1,37 @@
 package com.example.todoapplication;
 
 public class FoodData {
+    private String taskName;
+    private String taskDescription;
+    private String taskDeadline;
+    private String key;
 
-    String itemName;
-    String itemDescription;
-    String itemPrice;
-    int itemImage;
+    public FoodData(String s, String toString, String string, String imageUrl){}
 
 
-    public FoodData(String itemName, String itemDescription, String itemPrice, int itemImage) {
-        this.itemName = itemName;
-        this.itemDescription = itemDescription;
-        this.itemPrice = itemPrice;
-        this.itemImage = itemImage;
+    public FoodData(String taskName, String taskDescription, String taskDeadline) {
+        this.taskName = taskName;
+        this.taskDescription = taskDescription;
+        this.taskDeadline = taskDeadline;
     }
 
-    public String getItemName() {
-        return itemName;
+    public String getTaskName() {
+        return taskName;
     }
 
-    public String getItemDescription() {
-        return itemDescription;
+    public String getTaskDescription() {
+        return taskDescription;
     }
 
-    public String getItemPrice() {
-        return itemPrice;
+    public String getTaskDeadline() {
+        return taskDeadline;
     }
 
-    public int getItemImage() {
-        return itemImage;
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 }

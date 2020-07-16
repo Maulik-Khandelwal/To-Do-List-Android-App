@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".UploadTask">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="30dp"
+        android:orientation="vertical"
+        android:layout_marginTop="100dp">
+
+
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Task"
+            android:layout_marginTop="20dp"
+            android:textSize="19sp"
+            android:id="@+id/txt_task"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Description"
+            android:layout_marginTop="10dp"
+            android:textSize="19sp"
+            android:id="@+id/text_description"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Deadline"
+            android:layout_marginTop="10dp"
+            android:textSize="19sp"
+            android:layout_marginBottom="10dp"
+            android:id="@+id/text_DeadLine"/>
+
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="Add Task"
+            android:textSize="22sp"
+            android:backgroundTint="@color/colorPrimary"
+            android:textColor="#ffffff"
+            android:onClick="btnUploadRecipe"/>
+
+    </LinearLayout>
+
+
+</ScrollView>

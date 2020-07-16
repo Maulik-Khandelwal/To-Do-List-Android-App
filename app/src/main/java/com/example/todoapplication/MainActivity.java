@@ -1,26 +1,34 @@
 package com.example.todoapplication;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.View;
+import android.widget.EditText;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.ProgressDialog;
-import android.os.Bundle;
-import android.widget.EditText;
-
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     RecyclerView mRecyclerView;
     List<FoodData> myFoodList;
     FoodData mFoodData;
+    private DatabaseReference databaseReference;
+    private ValueEventListener eventListener;
     ProgressDialog progressDialog;
     MyAdapter myAdapter;
     EditText txt_Search;
@@ -30,49 +38,58 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mRecyclerView = (RecyclerView)findViewById(R.id.recyclerView);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(MainActivity.this,1);
-        mRecyclerView.setLayoutManager(gridLayoutManager);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        txt_Search = (EditText)findViewById(R.id.txt_searchtext);
+        mRecyclerView = (RecyclerView)findViewById(R.id.recyclerView);
 
         progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Loading Items ....");
+        progressDialog.setMessage("Loading items");
 
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(MainActivity.this, 1);
+        mRecyclerView.setLayoutManager(gridLayoutManager);
+
+        txt_Search = findViewById(R.id.txt_searchtext);
 
         myFoodList = new ArrayList<>();
 
-        myAdapter  = new MyAdapter(MainActivity.this,myFoodList);
+
+        myAdapter = new MyAdapter(MainActivity.this, myFoodList);
         mRecyclerView.setAdapter(myAdapter);
 
-
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Recipe");
+        databaseReference = FirebaseDatabase.getInstance().getReference("Recipe");
 
         progressDialog.show();
-        ValueEventListener eventListener = databaseReference.addValueEventListener(new ValueEventListener() {
+
+        eventListener = databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 myFoodList.clear();
 
-                for (DataSnapshot itemSnapshot : dataSnapshot.getChildren()) {
-
+                for (DataSnapshot itemSnapshot: dataSnapshot.getChildren()){
                     FoodData foodData = itemSnapshot.getValue(FoodData.class);
                     foodData.setKey(itemSnapshot.getKey());
                     myFoodList.add(foodData);
-
                 }
 
                 myAdapter.notifyDataSetChanged();
                 progressDialog.dismiss();
+
 
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 progressDialog.dismiss();
+
             }
         });
+
+
+
+
+
+
 
 
         txt_Search.addTextChangedListener(new TextWatcher() {
@@ -88,7 +105,6 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-
                 filter(s.toString());
 
             }
@@ -96,25 +112,64 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
+
+
     }
+
     private void filter(String text) {
 
         ArrayList<FoodData> filterList = new ArrayList<>();
 
-        for(FoodData item: myFoodList){
+        for (FoodData item: myFoodList){
 
-            if(item.getItemName().toLowerCase().contains(text.toLowerCase())){
+            if (item.getTaskName().toLowerCase().contains(text.toLowerCase())){
 
                 filterList.add(item);
 
             }
-
         }
 
         myAdapter.filteredList(filterList);
 
     }
+
+
+
+
+
+
+
+
+
+//    public void logout(final View view){
+//
+//        FirebaseAuth.getInstance().signOut();
+//
+//        GoogleSignIn.getClient(this,new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build())
+//                .signOut().addOnSuccessListener(new OnSuccessListener<Void>() {
+//            @Override
+//            public void onSuccess(Void aVoid) {
+//                startActivity(new Intent(view.getContext(),SignUp_Activity.class));
+//            }
+//
+//        }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception e) {
+//                Toast.makeText(MainActivity.this, "Signout failed", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return super.onSupportNavigateUp();
+    }
+
     public void btn_uploadActivity(View view) {
-        startActivity(new Intent(this,Upload_Recipe.class));
+
+        startActivity(new Intent(this, UploadTask.class));
+
     }
 }
