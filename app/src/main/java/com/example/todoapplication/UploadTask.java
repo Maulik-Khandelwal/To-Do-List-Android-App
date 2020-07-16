@@ -27,7 +27,7 @@ import java.util.Calendar;
 public class UploadTask extends AppCompatActivity {
 
 
-    ImageView recipeImage;
+//    ImageView recipeImage;
     Uri uri;
     EditText txt_task, txt_description, txt_DeadLine;
     String imageUrl;
@@ -46,48 +46,48 @@ public class UploadTask extends AppCompatActivity {
 
 
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (resultCode == RESULT_OK){
-
-            uri = data.getData();
-            recipeImage.setImageURI(uri);
-
-        }
-        else Toast.makeText(this, "You haven't picked image", Toast.LENGTH_SHORT).show();
-    }
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        if (resultCode == RESULT_OK){
+//
+//            uri = data.getData();
+//            recipeImage.setImageURI(uri);
+//
+//        }
+//        else Toast.makeText(this, "You haven't picked image", Toast.LENGTH_SHORT).show();
+//    }
 
     public void uploadImage(){
 
-        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("RecipeImnage").child(uri.getLastPathSegment());
+//        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("RecipeImnage").child(uri.getLastPathSegment());
 
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Task Uploading....");
         progressDialog.show();
 
 
-        storageReference.putFile(uri).addOnSuccessListener(new OnSuccessListener<com.google.firebase.storage.UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(com.google.firebase.storage.UploadTask.TaskSnapshot taskSnapshot) {
-                Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
-                while(!uriTask.isComplete());
-                Uri urlImage = uriTask.getResult();
-                imageUrl = urlImage.toString();
-                addTask();
+//        storageReference.putFile(uri).addOnSuccessListener(new OnSuccessListener<com.google.firebase.storage.UploadTask.TaskSnapshot>() {
+//            @Override
+//            public void onSuccess(com.google.firebase.storage.UploadTask.TaskSnapshot taskSnapshot) {
+//                Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
+//                while(!uriTask.isComplete());
+//                Uri urlImage = uriTask.getResult();
+//                imageUrl = urlImage.toString();
+                    addTask();
 
                 progressDialog.dismiss();
 
             }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                progressDialog.dismiss();
-            }
-        });
-
-    }
+//        }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception e) {
+//                progressDialog.dismiss();
+//            }
+//        });
+//
+//    }
 
 
 

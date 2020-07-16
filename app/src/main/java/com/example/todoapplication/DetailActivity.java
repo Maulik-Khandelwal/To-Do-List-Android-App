@@ -41,11 +41,11 @@ public class DetailActivity extends AppCompatActivity {
             foodDescription.setText(mBundle.getString("Description"));
 
             key = mBundle.getString("keyValue");
-            imageURL = mBundle.getString("Image");
+//            imageURL = mBundle.getString("Image");
 
 //            foodImage.setImageResource(mBundle.getInt("Image"));
 
-            Glide.with(this).load(mBundle.getString("Image")).into(foodImage);
+//            Glide.with(this).load(mBundle.getString("Image")).into(foodImage);
 
         }
 
@@ -53,22 +53,22 @@ public class DetailActivity extends AppCompatActivity {
 
     public void btnDeleteRecipe(View view) {
 
-        final DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Recipe");
-        FirebaseStorage storage = FirebaseStorage.getInstance();
+        final DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Task");
+//        FirebaseStorage storage = FirebaseStorage.getInstance();
+//
+//        StorageReference storageReference = storage.getReferenceFromUrl(imageURL);
 
-        StorageReference storageReference = storage.getReferenceFromUrl(imageURL);
-
-        storageReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
+//        storageReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+//            @Override
+//            public void onSuccess(Void aVoid) {
                 reference.child(key).removeValue();
                 Toast.makeText(DetailActivity.this, "Recipe Deleted", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 finish();
             }
-        });
+//        });
 
-    }
+//    }
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();

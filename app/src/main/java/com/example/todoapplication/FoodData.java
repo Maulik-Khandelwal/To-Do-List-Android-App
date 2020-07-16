@@ -6,7 +6,7 @@ public class FoodData {
     private String taskDeadline;
     private String key;
 
-    public FoodData(String s, String toString, String string, String imageUrl){}
+    public FoodData(){}
 
 
     public FoodData(String taskName, String taskDescription, String taskDeadline) {

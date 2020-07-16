@@ -80,7 +80,7 @@ public class MyAdapter extends RecyclerView.Adapter<FoodViewHolder>{
 
 class FoodViewHolder extends RecyclerView.ViewHolder {
 
-    ImageView imageView;
+//    ImageView imageView;
     TextView mTitle, mDescription, mDeadLine;
     CardView mCardView;
 

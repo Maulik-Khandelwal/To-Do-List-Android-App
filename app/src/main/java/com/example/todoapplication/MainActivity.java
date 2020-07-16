@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         myAdapter = new MyAdapter(MainActivity.this, myFoodList);
         mRecyclerView.setAdapter(myAdapter);
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("Recipe");
+        databaseReference = FirebaseDatabase.getInstance().getReference("Task");
 
         progressDialog.show();
 
